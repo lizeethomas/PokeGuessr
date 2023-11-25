@@ -1,15 +1,15 @@
 export class Pokemon {
-    No!:number;
-    Name!:string;
-    NameFR!:string;
-    Type1!:string;
-    Type2!:string;
-    PV!:number;
-    Att!:number;
-    Def!:number;
-    AttSpe!:number;
-    DefSpe!:number;
-    Vit!:number;
+    no!:number;
+    name!:string;
+    nameFR!:string;
+    type1!:string;
+    type2!:string;
+    pv!:number;
+    att!:number;
+    def!:number;
+    attSpe!:number;
+    defSpe!:number;
+    vit!:number;
     imageURL!:string;
     gameURL!:string[];
 }

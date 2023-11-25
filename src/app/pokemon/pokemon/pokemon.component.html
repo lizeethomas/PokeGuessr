@@ -7,7 +7,7 @@
             <div *ngIf="gameStatus">
                 <div class="name" *ngIf="pokemon$ | async; let pokemon">
                     <div>
-                        {{pokemon.Name + " #" + pokemon.No}}
+                        {{this.pokemon.nameFR + " #" + this.pokemon.no}}
                     </div>
                     <div>
                         <img class="img-solution" [src]="pokemon.imageURL">
@@ -18,8 +18,8 @@
                 </div>
 
             </div>
-        
-            <div id="parent" class="game-content" *ngIf="!gameStatus">
+
+            <!-- <div id="parent" class="game-content" *ngIf="!gameStatus">
                 <div *ngIf="!shadowHintToggle">
                     <div *ngIf="(game$ | async); let game">
                         <img id="image" class="img-game" [src]="game[cmpt]">
@@ -28,6 +28,19 @@
                 <div *ngIf="shadowHintToggle">
                     <div *ngIf="this.game$ | async; let game">
                         <img class="img-shadow" [src]="game[6]">
+                    </div>
+                </div>
+            </div> -->
+        
+            <div id="parent" class="game-content" *ngIf="!gameStatus">
+                <div *ngIf="!shadowHintToggle">
+                    <div *ngIf="pokemon$ | async; let pokemon">
+                        <img id="image" class="img-game" [src]="pokemon.gameURL[cmpt+1]">
+                    </div>
+                </div>
+                <div *ngIf="shadowHintToggle">
+                    <div *ngIf="pokemon$ | async; let pokemon">
+                        <img class="img-shadow" [src]="pokemon.gameURL[0]">
                     </div>
                 </div>
             </div>

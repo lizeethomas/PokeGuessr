@@ -21,6 +21,7 @@ export class PokemonComponent implements OnInit, AfterViewInit {
   game$!:Observable<string[]>;
 
   pokemon!:Pokemon;
+  game!:Game;
   mainForm!:FormGroup;
   guessCtrl!:FormControl;
 
@@ -55,12 +56,12 @@ export class PokemonComponent implements OnInit, AfterViewInit {
    }
 
    ngAfterViewInit(): void { 
-    this.getGame(this.size);
+    this.getGame();
    }
 
   initObservable() : void  {
     this.pokemon$ = this.pokemonService.pokemon$;
-    //this.game$ = this.pokemonService.game$;
+    this.game$ = this.pokemonService.game$;
   }
 
   initFormControl() : void  {
@@ -68,22 +69,18 @@ export class PokemonComponent implements OnInit, AfterViewInit {
   }
 
   getPokemon() : void  {
-    let dex:number = this.pokemonService.genRandomDex();
-    this.pokemonService.getPokemon(dex);
+    this.pokemonService.getPokemon();
   }
 
-  getGame(size:number) : void {
-    let setup:Setup = new Setup();
+  getGame() : void {
     this.pokemon$.pipe().subscribe({
       next: (pkmn:Pokemon) => {
         this.pokemon = pkmn;
-        this.type1 = "../../assets/types/Miniature_Type_" + pkmn.Type1 + "_EV.png";
-        if (pkmn.Type2 !== undefined && pkmn.Type2 !== null) {
-          this.type2 = "../../assets/types/Miniature_Type_" + pkmn.Type2 + "_EV.png";
-        }
-        setup.url = pkmn.imageURL;
-        setup.size = size;
-        //this.pokemonService.getGame(setup);
+        console.log(this.pokemon);
+        this.type1 = "../../assets/types/Miniature_Type_" + pkmn.type1 + "_EV.png";
+        if (pkmn.type2 !== undefined && pkmn.type2 !== null) {
+          this.type2 = "../../assets/types/Miniature_Type_" + pkmn.type2 + "_EV.png";
+        } //TODO
       }
     })
   }
@@ -92,9 +89,9 @@ export class PokemonComponent implements OnInit, AfterViewInit {
     this.nbTry++;
     event?.preventDefault();
     this.try = this.guessCtrl.value;
-    if (this.testWin(this.try, this.pokemon.Name)) {
+    if (this.testWin(this.try, this.pokemon.name) || this.testWin(this.try, this.pokemon.nameFR)) {
       this.gameStatus = true;
-      console.log(this.pokemon.Name)
+      console.log(this.pokemon.name)
       this.editScore();
     }
     else {
@@ -139,7 +136,7 @@ export class PokemonComponent implements OnInit, AfterViewInit {
   getGen() {
     let val = this.score - 20;
     if (this.verifScore(val)) {
-      this.genHint = this.testGen(this.pokemon.No);
+      this.genHint = this.testGen(this.pokemon.no);
     }
   }
 

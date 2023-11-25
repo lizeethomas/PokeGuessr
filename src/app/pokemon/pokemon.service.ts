@@ -15,23 +15,23 @@ export class PokemonService {
   constructor(private http:HttpClient) { }
 
   private _pokemon$ = new BehaviorSubject<Pokemon>(new Pokemon);
-  private _game$ = new BehaviorSubject<Game>(new Game);
+  private _game$ = new BehaviorSubject<Pokemon>(new Pokemon);
 
   get pokemon$() {
     return this._pokemon$.asObservable();
   } 
 
   get game$() {
-    return this._game$.asObservable().pipe(
-      map((game: Game) => {
+    return this._pokemon$.asObservable().pipe(
+      map((pokemon: Pokemon) => {
         const images: string[] = [];
-        images.push(game.start);
-        images.push(game.hint1);
-        images.push(game.hint2);
-        images.push(game.hint3);
-        images.push(game.hint4);
-        images.push(game.hint5);
-        images.push(game.shadow);
+        images.push(pokemon.gameURL[1]);
+        images.push(pokemon.gameURL[2]);
+        images.push(pokemon.gameURL[3]);
+        images.push(pokemon.gameURL[4]);
+        images.push(pokemon.gameURL[5]);
+        images.push(pokemon.gameURL[6]);
+        images.push(pokemon.gameURL[0]);
         return images;
       })
     )
@@ -42,7 +42,7 @@ export class PokemonService {
     return dex;
   }
 
-  getPokemon(dex:number) : void {
+  getPokemon() : void {
     this.http.get<Pokemon>(`${environments.apiUrl}`).pipe(
       tap(p => {
         this._pokemon$.next(p);
@@ -50,20 +50,20 @@ export class PokemonService {
     ).subscribe();
   }
 
-  getGame(setup:Setup) : void {
-    if (setup.url !== undefined) {
-      //console.log(setup);
-      const headers:HttpHeaders = new HttpHeaders({
-        "Content-Type" : "application/json"
-      });
-      this.http.post<Game>(`${environments.apiUrl}/game/`, setup, {headers}).pipe(
-        tap((game:Game) => {
-          this._game$.next(game);
-          //console.log(game);
-        })
-      ).subscribe();
-    } 
-  }
+  // getGame(setup:Setup) : void {
+  //   if (setup.url !== undefined) {
+  //     //console.log(setup);
+  //     const headers:HttpHeaders = new HttpHeaders({
+  //       "Content-Type" : "application/json"
+  //     });
+  //     this.http.post<Game>(`${environments.apiUrl}/game/`, setup, {headers}).pipe(
+  //       tap((game:Game) => {
+  //         this._game$.next(game);
+  //         //console.log(game);
+  //       })
+  //     ).subscribe();
+  //   } 
+  // }
 
 
 }
