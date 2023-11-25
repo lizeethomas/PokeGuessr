@@ -1,0 +1,100 @@
+
+<div class="main">
+
+    <div class="content">
+    
+        <div class="top">
+            <div *ngIf="gameStatus">
+                <div class="name" *ngIf="pokemon$ | async; let pokemon">
+                    <div>
+                        {{pokemon.Name + " #" + pokemon.No}}
+                    </div>
+                    <div>
+                        <img class="img-solution" [src]="pokemon.imageURL">
+                    </div>
+                    <div>
+                        <img class="type1" [src]="type1"><img *ngIf="type2" class="type2" [src]="type2">
+                    </div>
+                </div>
+
+            </div>
+        
+            <div id="parent" class="game-content" *ngIf="!gameStatus">
+                <div *ngIf="!shadowHintToggle">
+                    <div *ngIf="(game$ | async); let game">
+                        <img id="image" class="img-game" [src]="game[cmpt]">
+                    </div>
+                </div>
+                <div *ngIf="shadowHintToggle">
+                    <div *ngIf="this.game$ | async; let game">
+                        <img class="img-shadow" [src]="game[6]">
+                    </div>
+                </div>
+            </div>
+    
+            <div class="types" *ngIf="!gameStatus" style="clear: both;">
+                <div *ngIf="!typeHint">
+                    <img class="type1" [src]="unknownType"><img *ngIf="type2" class="type2" [src]="unknownType">
+                </div>
+                <div *ngIf="typeHint">
+                    <img class="type1" [src]="type1"><img *ngIf="type2" class="type2" [src]="type2">
+                </div>
+            </div>
+        </div>
+        
+        <div class="bottom">
+            <div class="div-form" *ngIf="!gameStatus">
+                <form class="guess-form">
+                    <input class="guess-input" type="text" matInput [formControl]="guessCtrl" placeholder="Guess here !">
+                    <button class="guess-button btn" (click)="onSubmit()">Valider</button>
+                </form>
+            </div>
+        
+            <div class="hints" *ngIf="!gameStatus">
+                <div *ngIf="shadowHint">
+                    <mat-button-toggle class="hint" (change)="toggleImage($event)">
+                        Ombre du Pokémon: 
+                        <a [style.background-color]="shadowHintToggle ? 'green' : 'red'">
+                            {{ shadowHintToggle ? 'ON' : 'OFF' }}
+                        </a>
+                    </mat-button-toggle>
+                </div>
+                <div class="hint" *ngIf="!shadowHint">
+                    Ombre du Pokémon ? <button (click)="activeShadowHint()">-50 pts</button>
+                </div>
+                <div class="hint" *ngIf="!typeHint && type2">
+                    Types du Pokémon ? <button (click)="revealType()">-25 pts</button>
+                </div>
+                <div class="hint" *ngIf="!typeHint && !type2">
+                    Type du Pokémon ? <button (click)="revealType()">-25 pts</button>
+                </div>
+                <div class="hint" *ngIf="genHint == 0">
+                    Génération du Pokémon ? <button (click)="getGen()">-20 pts</button>
+                </div>
+                <div class="hint" *ngIf="genHint != 0">
+                    Pokémon de la {{genHint + "G"}}
+                </div>
+                <div class="hint" *ngIf="cmpt < 5">
+                    Nouvelle zone révélée (encore {{5 - this.cmpt}}) ? <button (click)="newReveal()">-15 pts</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+    <div class="score">
+        Votre score: {{this.score}} - Nombre d'essais: {{this.nbTry}}
+    </div>
+
+    <div class="other">
+        <div>
+            <button (click)="anotherRound()">Rejouer</button>
+            <button *ngIf="!gameStatus" (click)="giveUp()">Abandonner</button>
+            <button *ngIf="gameStatus" (click)="checkScore()">?</button>
+        </div>
+    </div>
+    <div class="other" *ngIf="seeScore">
+        <p> Votre score moyen est: {{this.averageScore}}</p>
+    </div>
+
+</div>

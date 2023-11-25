@@ -1,0 +1,142 @@
+
+.main {
+}
+
+.content {
+    margin:auto;
+    text-align: center;
+    width: 500px;
+    background-color: rgb(96, 96, 190);
+}
+
+.name {
+    color: white;
+    font-size: 40px;
+}
+
+.img-solution {
+    width: 80%;
+    margin-bottom: 30px;
+    margin-top: 30px
+}
+
+.game-content {
+    border: 3px solid rgb(96, 96, 190);
+    background-color: white;}
+
+.img-game {
+    width: 100%
+}
+.img-shadow {
+    width: 100%
+}
+
+
+.game-content2 {
+    border: 3px solid rgb(96, 96, 190);
+    background-color: white;
+    width: 100%;
+    height:auto;
+    position: relative;
+    display: flex;
+}
+.img-game2 {
+    z-index: 3;
+    top: 0;
+    left: 0;
+    max-width: 100%;
+    height: auto;
+    position:absolute;
+}
+.img-shadow2 {
+    z-index: 1;
+    top: 0;
+    left: 0;
+    max-width: 100%;
+    height: auto;
+    position:absolute;
+}
+
+
+.types {
+    margin-top: 10px;
+}
+
+.div-form {
+    margin-top: 10px;
+    background-color:rgb(96, 96, 190);
+    width: 100%;
+    height: 100%;
+}
+
+.guess-form {
+    text-align: center;
+    width: 100%;
+    column-gap: 10px;
+    padding-bottom: 20px;
+}
+
+.guess-input {
+    height: 30px;
+    width: 60%;
+}
+
+.guess-buttons {
+    width: auto;
+}
+
+.guess-button {
+    margin-left: 20px;
+    height: 35px;
+}
+
+.type1 {
+    width: 40%;
+    height: 50%;
+}
+.type2 {
+    width: 40%;
+    height: 50%;
+}
+
+.hint {
+    color: white;
+    font-size: 20px;
+    padding-bottom: 10px;
+}
+
+.score {
+    margin-top: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    text-align: center;
+    width: 500px;
+    border: 1px solid black;
+    font-size: 20px;
+    padding: 3px;
+}
+
+.other {
+    margin:auto;
+    text-align: center;
+    width: 500px; 
+}
+
+@media screen and (max-width:1540px) {
+    .content, .other, .score {
+        width: 47%;
+    }
+}
+
+@media screen and (max-width:1024px) {
+    .content, .other, .score {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width:767px) {
+    .content, .other, .score {
+        width: 100%;
+    }
+}
